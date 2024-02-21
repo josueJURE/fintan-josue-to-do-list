@@ -1,6 +1,14 @@
-export default function Form() {
+export default function Form(props) {
+    function handleSubmit(event) {
+        event.preventDefault();
+        // .addTask() is essentially a method for props as it is the function
+        // that is being passed to '<Form />' in App.jsx which is then available
+        // here via props/as a prop. 'say hell' is the value being passed to the 'addTask()'
+        // functions that is "stored" in props (probably definitely the incorrect terminology)
+        props.addTask('say hell');
+    }
     return (
-        <form>
+        <form onSubmit={handleSubmit}>
             <h2 className="label-wrapper">
                 <label 
                     htmlFor="new-todo-input" 
