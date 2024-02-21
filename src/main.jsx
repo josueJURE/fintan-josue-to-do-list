@@ -11,6 +11,8 @@ const DATA = [
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <App />
+{/* passing the DATA array as a prop to the App component so it can be
+accessed by App.jsx to use the information stored in the array */}
+    <App tasks={DATA}/>
   </React.StrictMode>,
 )
