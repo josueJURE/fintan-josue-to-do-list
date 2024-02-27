@@ -1,8 +1,16 @@
 import Todo from "./components/Todo";
 import Form from "./components/Form";
 import FilterButton from "./components/FilterButton";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { nanoid } from "nanoid";
+
+// connect to local storage
+// pull data from local storage
+// add data to local storage
+
+function connectLocalStorage(task) {
+  localStorage.setItem("task", JSON.stringify(task));
+}
 
 // the properties for each key in this object are functions which will be used
 // to filter the 'tasks' (being passed from main.jsx through 'props') data array
@@ -15,11 +23,18 @@ const FILTER_MAP = {
 // will return an array of the 'key' names from FILTER_MAP
 const FILTER_NAMES = Object.keys(FILTER_MAP);
 
-export default function App(props) {  
+export default function App(props) {
+
 // this will preserve the initial value of props in the 'tasks' variable using the 
 // useState() 'hook' to return an array - 'tasks' - which 
 const [tasks, setTasks] = useState(props.tasks);
 const [filter, setFilter] = useState('All');
+
+useEffect(() => {
+  if (tasks) {
+    connectLocalStorage(tasks)
+  }
+}, [tasks]);
 
 function toggleTaskCompleted(id) {
   const updatedTasks = tasks.map((task) => {
@@ -41,11 +56,14 @@ function deleteTask(id) {
 function editTask(id, newName) {
   const editTaskList = tasks.map((task) => {
     if (id === task.id) {
+      
       // copy the task and update the name key with the newName argument
       return {...task, name: newName};
     }
+    
     return task;
   });
+  
   setTasks(editTaskList);
 }
 
@@ -78,7 +96,8 @@ function editTask(id, newName) {
     // nanoid is a JS library designed to create unique identifiers
     const newTask = { id: `todo-${nanoid()}`, name, completed: false };
     // this uses the spread syntax to copy the information from the array
-    // 'tasks' and add it to the object 'newTask' so th
+    // 'tasks' and add it to the object 'newTask'
+    connectLocalStorage(tasks);
     setTasks([...tasks, newTask])
   }
 
@@ -102,4 +121,6 @@ function editTask(id, newName) {
       </ul>
     </div>
   );
+
+
 }
