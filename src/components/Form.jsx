@@ -1,4 +1,5 @@
 import { useState } from "react";
+
 export default function Form(props) {
     const [name, setName] = useState('');
 
@@ -8,6 +9,8 @@ export default function Form(props) {
 
     function handleSubmit(event) {
         event.preventDefault();
+        // ignores empty inputs
+        if (name === '') {return};
         // .addTask() is essentially a method for props as it is the function
         // that is being passed to '<Form />' in App.jsx which is then available
         // here via props/as a prop. 'name' variable is the value being passed to the 'addTask()'
