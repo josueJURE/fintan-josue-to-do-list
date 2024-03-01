@@ -18,8 +18,6 @@ const updateLocalStorage = (task) => {
   localStorage.setItem("task", JSON.stringify(task));
 };
 
-
-
 // the properties for each key in this object are functions which will be used
 // to filter the 'tasks' (being passed from main.jsx through 'props') data array
 const FILTER_MAP = {
@@ -83,25 +81,6 @@ export default function App() {
 
     setTasks(editTaskList);
   }
-
-  // this passes the relevant properties from 'tasks' into the Todo component as props
-  // and filters by the 'filter' variable
-
-  // const taskList = tasks
-  // .filter(FILTER_MAP[filter])
-  // .map((task) => (
-  //   <Todo
-  //     id={task.id}
-  //     name={task.name}
-  //     completed={task.completed}
-  //     key={task.id}
-  //     toggleTaskCompleted={toggleTaskCompleted}
-  //     deleteTask={deleteTask}
-  //     editTask={editTask}
-  //   />
-  // ));
-
-  console.log("tasks:", tasks);
 
   const taskList = (tasks || [])
     .filter(FILTER_MAP[filter])
